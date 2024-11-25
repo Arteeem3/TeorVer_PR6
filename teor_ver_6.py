@@ -89,14 +89,14 @@ class ProbabilityTheory:
         print("\t\t\t! Функция")
         print(f"\t\t\tx\t<=\t{self.xi[0]:.2f}\t->\t0.00")
 
-        h = 0  # Cumulative probability
+        h = 0
         chart = Chart("x", "F(X)", "Эмпирическая функция")
 
-        # Add the first horizontal segment
-        x_start = self.values[0] - 1  # A value slightly below the smallest data point
+        
+        x_start = self.values[0] - 1
         chart.add_line([x_start, self.xi[0]], [0, 0], label=f"x <= {self.xi[0]:.2f}")
 
-        # Add the steps for the empirical function
+        
         for i in range(len(self.xi)):
             h += self.pi[i]
             if i < len(self.xi) - 1:
@@ -104,11 +104,11 @@ class ProbabilityTheory:
                 chart.add_line([self.xi[i], self.xi[i + 1]], [h, h],
                                label=f"{self.xi[i]:.2f} < x <= {self.xi[i + 1]:.2f}")
 
-        # Add the final horizontal segment
+        
         print(f"{self.xi[-1]:.2f}\t<\tx\t\t\t\t->\t{h:.2f}")
         chart.add_line([self.xi[-1], self.xi[-1] + 1], [h, h], label=f"{self.xi[-1]:.2f} < x")
 
-        # Save and display the plot
+        
         chart.save_png("EmpiricFunction")
 
     def draw_frequency_polygon(self):
@@ -153,7 +153,7 @@ class ProbabilityTheory:
         heights = [(freq / self.n) / h for freq in frequency]
 
         chart = Chart("x", "p_i / h", "Гистограмма частот")
-        # Pass bins[:-1] and heights with width=h
+        
         chart.add_histogram(bins[:-1], heights, width=h, label="Histogram")
         chart.save_png("Histogram")
 
@@ -172,7 +172,7 @@ def read_input(file_path: str, n: int = 20) -> list:
             parts = line.strip().split()
             for part in parts:
                 if part:
-                    data.append(float(part.replace(',', '.')))  # Handle commas as decimal points
+                    data.append(float(part.replace(',', '.')))
                     if len(data) == n:
                         break
             if len(data) == n:
